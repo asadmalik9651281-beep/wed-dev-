@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #000000;
+            --secondary-black: #0a0a0a;
+            --primary-green: #00ff8c;
+            --light-green: #7cffcb;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-black);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        section {
+            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        
+        .nav-link {
+            margin: 0 15px;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .green-text {
+            color: var(--primary-green);
+        }
+        
+        /* Welcome Section */
+        #welcome {
+            background: linear-gradient(to right, var(--primary-black) 60%, var(--secondary-black));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .animated-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: pulse 8s infinite alternate;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-green);
+            top: -100px;
+            right: -100px;
+            animation-delay: 1s;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--light-green);
+            bottom: -50px;
+            right: 200px;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--primary-green);
+            bottom: 100px;
+            left: -50px;
+            animation-delay: 3s;
+        }
+        
+        .profile-img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-green);
+            box-shadow: 0 0 30px rgba(0, 255, 140, 0.3);
+        }
+        
+        .social-icons {
+            margin-top: 30px;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-green);
+            transform: translateY(-5px);
+            color: black;
+        }
+        
+        /* About Section */
+        #about {
+            background-color: var(--secondary-black);
+        }
+        
+        .about-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-green);
+        }
+        
+        .cv-btn {
+            background-color: var(--primary-green);
+            color: black;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cv-btn:hover {
+            background-color: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 140, 0.3);
+        }
+        
+        /* Education Section */
+        .education-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            height: 100%;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .education-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--primary-green);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .education-icon {
+            font-size: 40px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        /* Skills Section */
+        .skill-category {
+            margin-bottom: 40px;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 10px;
+            background: var(--primary-green);
+            position: relative;
+            width: 0;
+            transition: width 2s ease;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        /* Tools Section */
+        .tool-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 3px solid var(--primary-green);
+        }
+        
+        .tool-icon {
+            font-size: 50px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        /* Projects Section */
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-tags {
+            margin-top: 15px;
+        }
+        
+        .project-tag {
+            display: inline-block;
+            background: rgba(0, 255, 140, 0.2);
+            color: var(--primary-green);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        /* Services Section */
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 3px solid var(--primary-green);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        /* Contact Section */
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            height: 100%;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 140, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 0.1;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .profile-img {
+                width: 250px;
+                height: 250px;
+                margin-bottom: 30px;
+            }
+        }
+        .skill-name {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between icon and text */
+}
+.skill-icon {
+    width: 24px;  /* adjust size as needed */
+    height: 24px;
+    object-fit: contain;
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">My<span class="green-text">Portfolio</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#welcome">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tools">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+<section id="welcome">
+    <div class="animated-circle circle-1"></div>
+    <div class="animated-circle circle-2"></div>
+    <div class="animated-circle circle-3"></div>
+    
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 fade-in">
+                <h1 class="display-4 fw-bold">I'm <span class="green-text">ASAd</span> Frontend Developer</h1>
+                <p class="lead mb-4">I'm a passionate developer creating innovative digital experiences with cutting-edge technologies.</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/m-asad-abbas-298a5b353?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app " class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/asadi__malik0?igsh=dmdxZmxnMWE1ZDQ3&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/194CarFHfY/?mibextid=wwXIfr" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center fade-in">
+                <img src="6.png" alt="Professional portrait of a developer with a modern background" class="profile-img">
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- About Section -->
+<section id="about">
+    <div class="container">
+        <h2 class="text-center mb-5">About <span class="green-text">Me</span></h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="about-content fade-in">
+                    <p>Hello! I'm Asad, a professional web developer with a passion for building digital solutions that make a difference. With expertise in both frontend and backend technologies, I create seamless, user-friendly experiences.</p>
+                    <p>My journey in technology started several years ago, and I've been honing my skills ever since. I specialize in HTML, CSS, JavaScript, React, Node.js, and database management. I believe in continuous learning and staying updated with the latest industry trends.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, contributing to open source projects, or sharing knowledge with the developer community.</p>
+                    <div class="text-center mt-4">
+                        <button class="btn cv-btn"><i class="fas fa-download me-2"></i> Download CV</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2 class="text-center mb-5">My <span class="green-text">Education</span></h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                   <h4>Matriculation</h4>
+<p>Completed my matriculation at Govt School Nawankot Layyah with excellent grades in Science and Mathematics. This achievement helped me develop a strong foundation for my future studies and career.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                       <h4>Intermediate</h4>
+<p>Pursued intermediate studies in Computer Science at Punjab College Layyah, which deepened my interest in programming and technology.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h4>BS Program</h4>
+                        <p>Enrolled in a Bachelor of Science in Information Technology at University of Management and Technology (UMT), Lahore</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>Web Development Course</h4>
+                        <p>Web Development Course
+PNY Lahore
+Completed a comprehensive course covering HTML, CSS, JavaScript, and modern frameworks..</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4>Self Learning</h4>
+                        <p>Continuously learning new technologies and frameworks through online courses, tutorials, and personal projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="text-center mb-5">My <span class="green-text">Skills</span></h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="skill-category fade-in">
+                        <h4 class="green-text mb-4">Frontend Development</h4>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>HTML5</span>
+                                <span>98%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>CSS3</span>
+                                <span>99%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>Bootstrap</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>JavaScript</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="skill-category fade-in">
+                        <h4 class="green-text mb-4">Backend & Other Skills</h4>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>PHP</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>C++</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools">
+        <div class="container">
+            <h2 class="text-center mb-5">Development <span class="green-text">Tools</span></h2>
+            <div class="row g-4">
+                <div class="col-md-6 fade-in">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h4>GitHub</h4>
+                        <p>Version control and collaboration platform for code hosting and project management.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 fade-in">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>VS Code</h4>
+                        <p>Powerful source code editor with support for development operations and debugging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="text-center mb-5">My <span class="green-text">Projects</span></h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="project-card">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a3d5f127-6fcc-4553-a2ed-5fe596bb00e5.png" alt="E-commerce website with modern design and product listings" class="project-img">
+                        <div class="project-content">
+                            <h4>E-Commerce Website</h4>
+                            <p>A fully responsive e-commerce platform with product filtering, cart functionality, and payment integration.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML5</span>
+                                <span class="project-tag">CSS3</span>
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">PHP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="project-card">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/89272635-deef-4e58-a7aa-158fe1c29b2f.png" alt="Task management application with clean user interface" class="project-img">
+                        <div class="project-content">
+                            <h4>Task Manager App</h4>
+                            <p>A web application for managing tasks with features like categorization, deadlines, and progress tracking.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">PHP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="project-card">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/23da8e52-5ba4-47e3-bd84-966944679466.png" alt="Weather application showing forecast and current conditions" class="project-img">
+                        <div class="project-content">
+                            <h4>Weather Application</h4>
+                            <p>A responsive weather app that displays current weather conditions and forecasts for any location.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML5</span>
+                                <span class="project-tag">CSS3</span>
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">API</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2 class="text-center mb-5">What I <span class="green-text">Offer</span></h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>Frontend Development</h4>
+                        <p>Creating responsive and interactive websites using HTML5, CSS3, JavaScript, and Bootstrap.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h4>Backend Development</h4>
+                        <p>Building server-side applications and APIs using PHP and other backend technologies.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-in">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Responsive Design</h4>
+                        <p>Ensuring websites work perfectly on all devices from desktops to mobile phones.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="text-center mb-5">Get In <span class="green-text">Touch</span></h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contact-info fade-in">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                               <a> <i class="fas fa-envelope"></i> 
+                            </div>
+                            <div>
+                                <h5>Email</h5>
+                                
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                             <a href="asadmalik9651281@gmail.com"><i class="fab fa-whatsapp"></i></a>   
+                            </div>
+                            <div>
+                                <h5>WhatsApp</h5>
+                             
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                              <a href="https://wa.link/78fozs"></a>  <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div>
+                                <h5>Facebook</h5>
+                             
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                               <a href="https://www.facebook.com/share/194CarFHfY/?mibextid=wwXIfr"> <i class="fab fa-instagram"></i> </a>
+                            </div>
+                            <div>
+                                <h5>Instagram</h5>
+                             
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                              <a href="https://www.instagram.com/asadi__malik0?igsh=dmdxZmxnMWE1ZDQ3&utm_source=qr">  <i class="fab fa-snapchat-ghost"></i> </a>
+                            </div>
+                            <div>
+                                <h5>Snapchat</h5>
+                          
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                              <a href="https://snapchat.com/t/t6QyT6yh"> <i class="fab fa-linkedin-in"></i> </a> 
+                            </div>
+                            <div>
+                                <h5>LinkedIn</h5>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center">
+        <div class="container">
+            <p class="mb-0">© 2023 My Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOptions = {
+                threshold: 0.3,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            
+            const fadeInObserver = new IntersectionObserver(function(entries, fadeInObserver) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('visible');
+                    fadeInObserver.unobserve(entry.target);
+                });
+            }, fadeInOptions);
+            
+            fadeElements.forEach(element => {
+                fadeInObserver.observe(element);
+            });
+            
+            // Animate skill bars
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const skillsSection = document.getElementById('skills');
+            
+            const skillsObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        skillBars.forEach(bar => {
+                            const width = bar.getAttribute('data-width');
+                            bar.style.width = width;
+                        });
+                        skillsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            skillsObserver.observe(skillsSection);
+            
+            // Navbar background on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.9) !important';
+                    navbar.style.padding = '10px 0';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.8) !important';
+                    navbar.style.padding = '20px 0';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
